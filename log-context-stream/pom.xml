@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>log-kafka-event-stream</artifactId>
+    <artifactId>log-context-stream</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
