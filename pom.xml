@@ -10,8 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>log-rawdata-producer</module>
-        <!--
         <module>log-event-stream</module>
+        <!--
         <module>log-context-stream</module>
         <module>log-data-consumer</module>
         -->
