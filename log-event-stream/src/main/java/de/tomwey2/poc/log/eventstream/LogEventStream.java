@@ -17,7 +17,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
 import org.springframework.kafka.config.KafkaStreamsConfiguration;
-import org.springframework.kafka.support.serializer.JsonSerde;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +49,9 @@ public class LogEventStream {
                 .stream(inputTopicName, Consumed.with(Serdes.String(),Serdes.String()));
 
         KStream<String, JSONObject> outStream = inStream
+                //.peek((k, v) -> System.out.println("Record: " + k + ", value: " + v))
                 .mapValues(logEventFactory::toJson)
+                //.peek((k, v) -> System.out.println("Json: " + k + ", value: " + v))
                 .filter((k, v) -> Objects.nonNull(v))
                 ;
 
@@ -64,9 +65,8 @@ public class LogEventStream {
         Map<String, Object> props = new HashMap<>();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, applicationId);
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonSerde.class);
-        props.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG, LogDataTimeExtractor.class);
+        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JSONSerde.class.getName());
 
         return new KafkaStreamsConfiguration(props);
     }
