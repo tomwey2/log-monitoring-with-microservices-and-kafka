@@ -28,5 +28,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- if using docker compose then client have to retry fetching
+        the configuration if the config server is unavailable.
+        see: https://stackoverflow.com/questions/50347550/how-set-up-retry-config-fetching-in-spring-boot-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+        <!-- end -->
     </dependencies>
 </project>
