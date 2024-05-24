@@ -1,0 +1,30 @@
+version: "3"
+services:
+  spring-cloud-config-server:
+    image: spring-cloud-config-server
+    container_name: spring-cloud-config-server
+    ports:
+      - "8888:8888"
+    network_mode: "host"
+
+  log-rawdata-producer:
+    image: log-rawdata-producer
+    container_name: log-rawdata-producer
+    depends_on:
+      - spring-cloud-config-server
+    environment:
+      - SPRING_APPLICATION_NAME=log-rawdata-producer
+    ports:
+      - "8086:8086"
+    network_mode: "host"
+
+  log-event-stream:
+    image: log-event-stream
+    container_name: log-event-stream
+    depends_on:
+      - spring-cloud-config-server
+    environment:
+      - SPRING_APPLICATION_NAME=log-event-stream
+    ports:
+      - "8087:8087"
+    network_mode: "host"
