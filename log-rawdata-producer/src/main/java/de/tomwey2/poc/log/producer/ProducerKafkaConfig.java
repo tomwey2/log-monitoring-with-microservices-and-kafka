@@ -17,8 +17,6 @@ import java.util.Map;
 
 @Configuration
 public class ProducerKafkaConfig {
-    @Value("${client.app}")
-    private String clientApp;
     @Value("${spring.kafka.bootstrap.servers}")
     private String bootstrapServers;
     @Value("${spring.kafka.output.topic.name}")
@@ -31,7 +29,6 @@ public class ProducerKafkaConfig {
     @PostConstruct
     public void printConfiguration() {
         System.out.println("Client data:");
-        System.out.println("client.app=" + clientApp);
         System.out.println("spring.kafka.bootstrap.servers=" + bootstrapServers);
         System.out.println("spring.kafka.output.topic.name=" + outputTopicName);
     }
